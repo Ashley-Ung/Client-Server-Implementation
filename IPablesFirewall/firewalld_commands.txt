@@ -1,0 +1,60 @@
+###########
+#FirewallD#
+###########
+
+systemctl start firewalld
+
+firewall-cmd --version
+
+firewall-cmd --get-active-zones
+firewall-cmd --get-zone-of-interface=eth0
+
+
+iptables -L -n -v --line-numbers
+
+cat /usr/lib/firewalld/zones/public.xml
+
+head /etc/firewalld/firewalld.conf
+
+firewall-cmd --zone=block --change-interface=eth0
+
+cat /usr/lib/firewalld/zones/block.xml
+
+# ssh in via 36022 on host (22 in vb)
+
+firewall-cmd --add-port=22/tcp --zone=block
+
+cat /usr/lib/firewalld/zones/block.xml
+
+
+firewall-cmd --set-default-zone=block
+
+systemctl restart firewalld
+
+firewall-cmd --get-active-zones
+
+firewall-cmd --get-zone-of-interface=eth0
+
+iptables -L -n -v --line-numbers
+
+
+firewall-cmd --permanent --add-port=22/tcp --zone=block
+
+cat /etc/firewalld/zones/block.xml
+
+systemctl restart firewalld
+
+firewall-cmd --get-active-zones
+
+firewall-cmd --get-zone-of-interface=eth0
+
+firewall-cmd --set-default-zone=public
+
+iptables -L -n -v --line-numbers
+
+rm -rf  /etc/firewalld/zones/block.xml
+
+
+
+
+
